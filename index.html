@@ -1327,22 +1327,27 @@ async function fetchSheetData() {
 function parseCSV(text) {
   const lines = text.trim().split('\n');
   if (lines.length < 2) return [];
+
   const rows = [];
+
   for (let i = 1; i < lines.length; i++) {
     const cols = splitCSVLine(lines[i]);
     if (cols.every(c => !c.trim())) continue;
+
     rows.push({
-  mo_number: (cols[COL.MONo] || '').trim(),
-  date: (cols[COL.Item] || '').trim(), // <-- ถ้าเป็นวันที่จริงให้แก้ index ให้ตรง
-  machine_type: (cols[COL.MCName] || '').trim(),
-  machine_id: (cols[COL.MCNo] || '').trim(),
-  type: normalizeType((cols[COL.Type] || '').trim()),
-  downtime: parseFloat((cols[COL["เวลาที่ใช้ซ่อม"]] || '0').replace(',','')) || 0,
-  cause: (cols[COL["รายละเอียดปัญหา"]] || '').trim(),
-  operator: (cols[COL["ผู้ซ่อม"]] || '').trim(),
-  status: (cols[COL["การแก้ไข"]] || '').trim(),
-  });
+      mo_number: cols[18]?.trim() || '',   // MONo
+      date: cols[0]?.trim() || '',        // Item (วันที่)
+      machine_type: cols[3]?.trim() || '', // MCName
+      machine_id: cols[4]?.trim() || '',   // MCNo
+      type: normalizeType(cols[2]?.trim() || ''), // Type
+      downtime: parseFloat(cols[12]) || 0, // เวลาที่ใช้ซ่อม
+      cause: cols[13]?.trim() || '',       // รายละเอียดปัญหา
+      operator: cols[17]?.trim() || '',    // ผู้ซ่อม
+      status: cols[15]?.trim() || '',      // การแก้ไข
+      _source: 'sheet'
+    });
   }
+
   return rows;
 }
 
