@@ -1313,7 +1313,7 @@ function showToast(msg, type = 'info', duration = 3000) {
 // Fetch Google Sheet as CSV
 // ============================================================
 async function fetchSheetData() {
-  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID}`;
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=${GID}`;
   const resp = await fetch(url);
   if (!resp.ok) throw new Error('HTTP ' + resp.status);
   const text = await resp.text();
