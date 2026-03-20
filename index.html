@@ -1332,17 +1332,16 @@ function parseCSV(text) {
     const cols = splitCSVLine(lines[i]);
     if (cols.every(c => !c.trim())) continue;
     rows.push({
-      mo_number: (cols[COL.mo_number] || '').trim(),
-      date: (cols[COL.date] || '').trim(),
-      machine_type: (cols[COL.machine_type] || '').trim(),
-      machine_id: (cols[COL.machine_id] || '').trim(),
-      type: normalizeType((cols[COL.type] || '').trim()),
-      downtime: parseFloat((cols[COL.downtime] || '0').replace(',','')) || 0,
-      cause: (cols[COL.cause] || '').trim(),
-      operator: (cols[COL.operator] || '').trim(),
-      status: (cols[COL.status] || '').trim(),
-      _source: 'sheet'
-    });
+  mo_number: (cols[COL.MONo] || '').trim(),
+  date: (cols[COL.Item] || '').trim(), // <-- ถ้าเป็นวันที่จริงให้แก้ index ให้ตรง
+  machine_type: (cols[COL.MCName] || '').trim(),
+  machine_id: (cols[COL.MCNo] || '').trim(),
+  type: normalizeType((cols[COL.Type] || '').trim()),
+  downtime: parseFloat((cols[COL["เวลาที่ใช้ซ่อม"]] || '0').replace(',','')) || 0,
+  cause: (cols[COL["รายละเอียดปัญหา"]] || '').trim(),
+  operator: (cols[COL["ผู้ซ่อม"]] || '').trim(),
+  status: (cols[COL["การแก้ไข"]] || '').trim(),
+  });
   }
   return rows;
 }
@@ -1484,6 +1483,13 @@ function handleFilterKey(e) {
 
 function parseDate(str) {
   if (!str) return null;
+
+  // รองรับ dd/mm/yyyy
+  const parts = str.split('/');
+  if (parts.length === 3) {
+    return new Date(parts[2], parts[1] - 1, parts[0]);
+  }
+
   const d = new Date(str);
   return isNaN(d) ? null : d;
 }
