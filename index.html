@@ -1244,15 +1244,18 @@ const ROWS_PER_PAGE = 15;
 // Column mapping from Google Sheet (adjust to match your columns)
 // Expected columns: MO, Date, MachineType, MachineID, Type, Downtime, Cause, Operator, Status
 const COL = {
-  mo_number: 0,
-  date: 1,
-  machine_type: 2,
-  machine_id: 3,
-  type: 4,
-  downtime: 5,
-  cause: 6,
-  operator: 7,
-  status: 8
+  Item: 0,
+  Description: 1,
+  Type: 2,
+  MCName: 3,
+  MCNo: 4,
+  เวลาที่ใช้ซ่อม: 12,
+   รายละเอียดปัญหา: 13,
+  สาเหตุ: 14,
+  การแก้ไข: 15,
+  อะไหล่: 16,
+  ผู้ซ่อม: 17,
+  MONo: 18
 };
 
 // ============================================================
@@ -1314,6 +1317,7 @@ function showToast(msg, type = 'info', duration = 3000) {
 // ============================================================
 async function fetchSheetData() {
   const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=${GID}`;
+  //https://docs.google.com/spreadsheets/d/14mZzwsT57fsnlHboRd8v6BV5EbT0_QaQwxZA1S_3DAs/edit?usp=sharing
   const resp = await fetch(url);
   if (!resp.ok) throw new Error('HTTP ' + resp.status);
   const text = await resp.text();
