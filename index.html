@@ -749,7 +749,7 @@ function parseCSV(text) {
     if (cols.every(c => !c.trim())) continue;
     rows.push({
       mo_number:    cols[18]?.trim() || '',
-      date:         cols[0]?.trim()  || '',
+      date:         cols[8]?.trim()  || '',
       machine_type: cols[3]?.trim()  || '',
       machine_id:   cols[4]?.trim()  || '',
       type:         normalizeType(cols[2]?.trim() || ''),
