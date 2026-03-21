@@ -964,7 +964,7 @@ function calcReliability(data) {
   // Operating time หักด้วย downtime รวม (ของ breakdown)
   const opTime = Math.max(totalOpHours - totalDT, 0);
   // const mtbf = opTime / n; สูตรตั้งต้น
-  const mtbf = (730 - n) / n; 
+  const mtbf = (730 - n) / 730; 
   return { mttr, mtbf, n, totalDT, totalOpHours: Math.round(totalOpHours), periodDays: Math.round(periodHours/24) };
 }
  
