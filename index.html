@@ -20,6 +20,8 @@
     --accent-red: #ff3d5a;
     --accent-green: #00e676;
     --accent-yellow: #ffd600;
+    --accent-purple: #b06eff;
+    --accent-teal: #00c9a7;
     --text-primary: #e8eeff;
     --text-secondary: #7a8db0;
     --text-muted: #4a5878;
@@ -30,6 +32,8 @@
     --glow-blue: 0 0 20px rgba(45,125,210,0.3);
     --glow-red: 0 0 20px rgba(255,61,90,0.3);
     --glow-cyan: 0 0 20px rgba(0,212,255,0.2);
+    --glow-purple: 0 0 20px rgba(176,110,255,0.25);
+    --glow-teal: 0 0 20px rgba(0,201,167,0.25);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -42,7 +46,6 @@
     overflow-x: hidden;
   }
 
-  /* Animated grid background */
   body::before {
     content: '';
     position: fixed;
@@ -74,230 +77,110 @@
     border-bottom: 1px solid rgba(30,45,80,0.5);
   }
 
-  .header-logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
+  .header-logo { display: flex; align-items: center; gap: 12px; }
 
   .logo-icon {
-    width: 38px;
-    height: 38px;
+    width: 38px; height: 38px;
     background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
     border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     font-size: 18px;
     box-shadow: var(--glow-blue);
   }
 
-  .logo-text h1 {
-    font-size: 16px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    color: var(--text-primary);
-  }
+  .logo-text h1 { font-size: 16px; font-weight: 700; letter-spacing: 0.5px; color: var(--text-primary); }
+  .logo-text p { font-size: 11px; color: var(--text-muted); font-family: 'IBM Plex Mono', monospace; letter-spacing: 1px; }
 
-  .logo-text p {
-    font-size: 11px;
-    color: var(--text-muted);
-    font-family: 'IBM Plex Mono', monospace;
-    letter-spacing: 1px;
-  }
-
-  .header-center {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-  }
+  .header-center { display: flex; flex-direction: column; align-items: center; gap: 2px; }
 
   .datetime-display {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--accent-cyan);
-    letter-spacing: 2px;
+    font-size: 22px; font-weight: 600;
+    color: var(--accent-cyan); letter-spacing: 2px;
     text-shadow: var(--glow-cyan);
   }
 
-  .date-display {
-    font-size: 12px;
-    color: var(--text-secondary);
-    letter-spacing: 1px;
-    font-family: 'IBM Plex Mono', monospace;
-  }
+  .date-display { font-size: 12px; color: var(--text-secondary); letter-spacing: 1px; font-family: 'IBM Plex Mono', monospace; }
+  .next-sync { font-size: 10px; color: var(--text-muted); font-family: 'IBM Plex Mono', monospace; margin-top: 2px; }
 
-  .header-right {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
+  .header-right { display: flex; align-items: center; gap: 16px; }
 
-  .sync-indicator {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 11px;
-    color: var(--text-muted);
-    font-family: 'IBM Plex Mono', monospace;
-  }
+  .sync-indicator { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--text-muted); font-family: 'IBM Plex Mono', monospace; }
 
   .sync-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--accent-green);
-    box-shadow: 0 0 8px var(--accent-green);
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent-green); box-shadow: 0 0 8px var(--accent-green);
     animation: pulse 2s infinite;
   }
+  .sync-dot.syncing { background: var(--accent-yellow); box-shadow: 0 0 8px var(--accent-yellow); }
 
-  .sync-dot.syncing {
-    background: var(--accent-yellow);
-    box-shadow: 0 0 8px var(--accent-yellow);
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
   .btn-refresh {
     padding: 7px 16px;
-    background: rgba(45,125,210,0.15);
-    border: 1px solid var(--accent-blue);
-    border-radius: 6px;
-    color: var(--accent-cyan);
-    font-size: 12px;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: 'IBM Plex Mono', monospace;
+    background: rgba(45,125,210,0.15); border: 1px solid var(--accent-blue);
+    border-radius: 6px; color: var(--accent-cyan); font-size: 12px;
+    cursor: pointer; transition: all 0.2s; font-family: 'IBM Plex Mono', monospace;
   }
+  .btn-refresh:hover { background: rgba(45,125,210,0.3); box-shadow: var(--glow-blue); }
 
-  .btn-refresh:hover {
-    background: rgba(45,125,210,0.3);
-    box-shadow: var(--glow-blue);
+  .btn-add {
+    padding: 7px 18px;
+    background: rgba(0,230,118,0.12); border: 1px solid var(--accent-green);
+    border-radius: 6px; color: var(--accent-green); font-size: 12px;
+    cursor: pointer; transition: all 0.2s;
+    font-family: 'IBM Plex Sans Thai', sans-serif; font-weight: 600;
   }
+  .btn-add:hover { background: rgba(0,230,118,0.22); box-shadow: 0 0 14px rgba(0,230,118,0.2); }
 
   /* Filter Bar */
-  .filter-bar {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 0;
-    flex-wrap: wrap;
-  }
-
-  .filter-group {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .filter-label {
-    font-size: 11px;
-    color: var(--text-muted);
-    font-family: 'IBM Plex Mono', monospace;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    white-space: nowrap;
-  }
+  .filter-bar { display: flex; align-items: center; gap: 12px; padding: 12px 0; flex-wrap: wrap; }
+  .filter-group { display: flex; align-items: center; gap: 8px; }
+  .filter-label { font-size: 11px; color: var(--text-muted); font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
 
   .filter-select, .filter-input {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    color: var(--text-primary);
-    padding: 6px 10px;
-    font-size: 12px;
-    font-family: 'IBM Plex Sans Thai', sans-serif;
-    outline: none;
-    transition: border-color 0.2s;
-    min-width: 130px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 6px; color: var(--text-primary); padding: 6px 10px;
+    font-size: 12px; font-family: 'IBM Plex Sans Thai', sans-serif;
+    outline: none; transition: border-color 0.2s; min-width: 130px;
   }
-
   .filter-input { min-width: 180px; }
-
-  .filter-select:focus, .filter-input:focus {
-    border-color: var(--accent-blue);
-    box-shadow: 0 0 0 2px rgba(45,125,210,0.15);
-  }
+  .filter-select:focus, .filter-input:focus { border-color: var(--accent-blue); box-shadow: 0 0 0 2px rgba(45,125,210,0.15); }
 
   .btn-filter {
     padding: 6px 18px;
     background: linear-gradient(135deg, var(--accent-blue), #1a5fa8);
-    border: none;
-    border-radius: 6px;
-    color: #fff;
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    letter-spacing: 0.5px;
+    border: none; border-radius: 6px; color: #fff;
+    font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; letter-spacing: 0.5px;
   }
-
-  .btn-filter:hover {
-    transform: translateY(-1px);
-    box-shadow: var(--glow-blue);
-  }
+  .btn-filter:hover { transform: translateY(-1px); box-shadow: var(--glow-blue); }
 
   .btn-clear {
-    padding: 6px 14px;
-    background: transparent;
-    border: 1px solid var(--border-light);
-    border-radius: 6px;
-    color: var(--text-secondary);
-    font-size: 12px;
-    cursor: pointer;
-    transition: all 0.2s;
+    padding: 6px 14px; background: transparent; border: 1px solid var(--border-light);
+    border-radius: 6px; color: var(--text-secondary); font-size: 12px; cursor: pointer; transition: all 0.2s;
   }
-
-  .btn-clear:hover {
-    border-color: var(--accent-orange);
-    color: var(--accent-orange);
-  }
+  .btn-clear:hover { border-color: var(--accent-orange); color: var(--accent-orange); }
 
   /* ===== MAIN ===== */
-  .main {
-    position: relative;
-    z-index: 1;
-    padding: 20px 24px;
-    max-width: 1600px;
-    margin: 0 auto;
-  }
+  .main { position: relative; z-index: 1; padding: 20px 24px; max-width: 1600px; margin: 0 auto; }
 
-  /* KPI Cards */
+  /* KPI Grid */
   .kpi-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 16px;
-    margin-bottom: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px; margin-bottom: 24px;
   }
 
   .kpi-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s;
-    animation: fadeInUp 0.5s ease both;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px;
+    position: relative; overflow: hidden;
+    transition: all 0.3s; animation: fadeInUp 0.5s ease both;
   }
-
-  .kpi-card:hover {
-    border-color: var(--border-light);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
-  }
-
+  .kpi-card:hover { border-color: var(--border-light); transform: translateY(-2px); box-shadow: var(--shadow); }
   .kpi-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    border-radius: 12px 12px 0 0;
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; border-radius: 12px 12px 0 0;
   }
 
   .kpi-card.total::before { background: var(--accent-blue); }
@@ -305,19 +188,14 @@
   .kpi-card.shutdown::before { background: var(--accent-orange); }
   .kpi-card.downtime::before { background: var(--accent-yellow); }
   .kpi-card.operators::before { background: var(--accent-cyan); }
+  .kpi-card.mttr::before { background: var(--accent-teal); }
+  .kpi-card.mtbf::before { background: var(--accent-purple); }
 
-  .kpi-icon {
-    font-size: 28px;
-    margin-bottom: 10px;
-    display: block;
-  }
+  .kpi-icon { font-size: 26px; margin-bottom: 8px; display: block; }
 
   .kpi-value {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 36px;
-    font-weight: 700;
-    line-height: 1;
-    margin-bottom: 4px;
+    font-size: 30px; font-weight: 700; line-height: 1; margin-bottom: 4px;
   }
 
   .kpi-card.total .kpi-value { color: var(--accent-blue); }
@@ -325,117 +203,47 @@
   .kpi-card.shutdown .kpi-value { color: var(--accent-orange); }
   .kpi-card.downtime .kpi-value { color: var(--accent-yellow); }
   .kpi-card.operators .kpi-value { color: var(--accent-cyan); }
+  .kpi-card.mttr .kpi-value { color: var(--accent-teal); }
+  .kpi-card.mtbf .kpi-value { color: var(--accent-purple); }
 
-  .kpi-unit {
-    font-size: 14px;
-    font-weight: 400;
-    margin-left: 4px;
-    opacity: 0.7;
-  }
+  .kpi-unit { font-size: 13px; font-weight: 400; margin-left: 3px; opacity: 0.7; }
+  .kpi-label { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+  .kpi-formula { font-size: 10px; color: var(--text-muted); margin-top: 5px; font-family: 'IBM Plex Mono', monospace; line-height: 1.4; }
 
-  .kpi-label {
-    font-size: 12px;
-    color: var(--text-secondary);
-    margin-top: 2px;
-  }
-
-  /* Grid Layout */
-  .dashboard-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-bottom: 24px;
-  }
-
-  .dashboard-grid-3 {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 16px;
-    margin-bottom: 24px;
-  }
+  /* Grid layouts */
+  .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .dashboard-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 24px; }
 
   @media (max-width: 1200px) {
-    .dashboard-grid, .dashboard-grid-3 {
-      grid-template-columns: 1fr;
-    }
+    .dashboard-grid, .dashboard-grid-3 { grid-template-columns: 1fr; }
   }
 
   /* Cards */
-  .card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    animation: fadeInUp 0.5s ease both;
-  }
+  .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; animation: fadeInUp 0.5s ease both; }
 
   .card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px 20px;
-    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 20px; border-bottom: 1px solid var(--border);
   }
 
-  .card-title {
-    font-size: 13px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--text-secondary);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
+  .card-title { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px; }
   .card-title-icon { font-size: 16px; }
-
-  .card-badge {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    padding: 3px 10px;
-    background: rgba(45,125,210,0.2);
-    border: 1px solid rgba(45,125,210,0.3);
-    border-radius: 20px;
-    color: var(--accent-cyan);
-  }
-
+  .card-badge { font-family: 'IBM Plex Mono', monospace; font-size: 11px; padding: 3px 10px; background: rgba(45,125,210,0.2); border: 1px solid rgba(45,125,210,0.3); border-radius: 20px; color: var(--accent-cyan); }
   .card-body { padding: 20px; }
 
-  /* Chart container */
-  .chart-wrap {
-    position: relative;
-    height: 220px;
-  }
+  /* Charts */
+  .chart-wrap { position: relative; height: 220px; }
+  .chart-legend { display: flex; gap: 16px; justify-content: center; margin-top: 10px; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text-secondary); }
+  .legend-dot { width: 10px; height: 10px; border-radius: 2px; }
 
-  /* Top 3 Problems */
+  /* Top lists */
   .top-list { list-style: none; }
-
-  .top-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 0;
-    border-bottom: 1px solid var(--border);
-    transition: all 0.2s;
-  }
-
+  .top-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); transition: all 0.2s; }
   .top-item:last-child { border-bottom: none; }
   .top-item:hover { padding-left: 4px; }
 
-  .rank-badge {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 14px;
-    font-weight: 700;
-    flex-shrink: 0;
-  }
-
+  .rank-badge { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 700; flex-shrink: 0; }
   .rank-1 { background: rgba(255,214,0,0.2); color: var(--accent-yellow); border: 1px solid rgba(255,214,0,0.4); }
   .rank-2 { background: rgba(0,212,255,0.15); color: var(--accent-cyan); border: 1px solid rgba(0,212,255,0.3); }
   .rank-3 { background: rgba(255,107,53,0.15); color: var(--accent-orange); border: 1px solid rgba(255,107,53,0.3); }
@@ -443,494 +251,107 @@
   .rank-5 { background: rgba(122,141,176,0.15); color: var(--text-secondary); border: 1px solid rgba(122,141,176,0.3); }
 
   .top-info { flex: 1; min-width: 0; }
-
-  .top-name {
-    font-size: 13px;
-    font-weight: 500;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: var(--text-primary);
-  }
-
-  .top-sub {
-    font-size: 11px;
-    color: var(--text-muted);
-    margin-top: 2px;
-  }
-
-  .top-count {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--accent-red);
-    flex-shrink: 0;
-    text-align: right;
-  }
-
+  .top-name { font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-primary); }
+  .top-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+  .top-count { font-family: 'IBM Plex Mono', monospace; font-size: 18px; font-weight: 700; color: var(--accent-red); flex-shrink: 0; text-align: right; }
   .top-count-label { font-size: 10px; color: var(--text-muted); font-weight: 400; display: block; }
 
-  /* Progress bar */
-  .progress-bar-wrap {
-    margin-top: 6px;
-    height: 4px;
-    background: var(--border);
-    border-radius: 2px;
-    overflow: hidden;
-  }
+  .progress-bar-wrap { margin-top: 6px; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+  .progress-bar { height: 100%; border-radius: 2px; transition: width 0.8s ease; }
 
-  .progress-bar {
-    height: 100%;
-    border-radius: 2px;
-    transition: width 0.8s ease;
-  }
-
-  /* Operator Stats */
-  .operator-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border);
-  }
-
+  /* Operator */
+  .operator-item { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); }
   .operator-item:last-child { border-bottom: none; }
+  .operator-avatar { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan)); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+  .operator-name { flex: 1; font-size: 13px; font-weight: 500; }
+  .operator-count { font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: var(--accent-cyan); font-weight: 600; }
 
-  .operator-avatar {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    font-weight: 700;
-    flex-shrink: 0;
-  }
-
-  .operator-name {
-    flex: 1;
-    font-size: 13px;
-    font-weight: 500;
-  }
-
-  .operator-count {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 14px;
-    color: var(--accent-cyan);
-    font-weight: 600;
-  }
-
-  /* Data Table */
-  .table-wrap {
-    overflow-x: auto;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 12px;
-  }
+  /* Table */
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
 
   thead th {
-    padding: 10px 12px;
-    text-align: left;
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    color: var(--text-muted);
-    border-bottom: 1px solid var(--border);
-    white-space: nowrap;
-    background: rgba(15,22,40,0.5);
-    cursor: pointer;
-    user-select: none;
+    padding: 10px 12px; text-align: left; font-size: 11px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted);
+    border-bottom: 1px solid var(--border); white-space: nowrap;
+    background: rgba(15,22,40,0.5); cursor: pointer; user-select: none;
   }
-
   thead th:hover { color: var(--accent-cyan); }
 
-  tbody tr {
-    border-bottom: 1px solid rgba(30,45,80,0.4);
-    transition: background 0.15s;
-  }
-
+  tbody tr { border-bottom: 1px solid rgba(30,45,80,0.4); transition: background 0.15s; cursor: pointer; }
   tbody tr:hover { background: rgba(45,125,210,0.05); }
+  tbody td { padding: 10px 12px; color: var(--text-primary); vertical-align: top; }
 
-  tbody td {
-    padding: 10px 12px;
-    color: var(--text-primary);
-    vertical-align: middle;
-  }
+  .cell-cause { font-size: 11px; color: var(--text-secondary); max-width: 220px; line-height: 1.5; }
+  .cell-fix { font-size: 11px; color: #4ade80; max-width: 220px; line-height: 1.5; }
 
-  .type-badge {
-    display: inline-block;
-    padding: 3px 10px;
-    border-radius: 20px;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-  }
+  .type-badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; }
+  .badge-breakdown { background: rgba(255,61,90,0.15); color: var(--accent-red); border: 1px solid rgba(255,61,90,0.3); }
+  .badge-shutdown { background: rgba(255,152,0,0.15); color: var(--accent-orange); border: 1px solid rgba(255,152,0,0.3); }
+  .badge-pm { background: rgba(0,212,255,0.1); color: var(--accent-cyan); border: 1px solid rgba(0,212,255,0.2); }
+  .badge-other { background: rgba(122,141,176,0.1); color: var(--text-secondary); border: 1px solid rgba(122,141,176,0.2); }
 
-  .badge-breakdown {
-    background: rgba(255,61,90,0.15);
-    color: var(--accent-red);
-    border: 1px solid rgba(255,61,90,0.3);
-  }
-
-  .badge-shutdown {
-    background: rgba(255,152,0,0.15);
-    color: var(--accent-orange);
-    border: 1px solid rgba(255,152,0,0.3);
-  }
-
-  .badge-pm {
-    background: rgba(0,212,255,0.1);
-    color: var(--accent-cyan);
-    border: 1px solid rgba(0,212,255,0.2);
-  }
-
-  .badge-other {
-    background: rgba(122,141,176,0.1);
-    color: var(--text-secondary);
-    border: 1px solid rgba(122,141,176,0.2);
-  }
-
-  .downtime-val {
-    font-family: 'IBM Plex Mono', monospace;
-    color: var(--accent-yellow);
-    font-weight: 600;
-  }
+  .downtime-val { font-family: 'IBM Plex Mono', monospace; color: var(--accent-yellow); font-weight: 600; }
 
   /* Pagination */
-  .pagination {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 20px;
-    border-top: 1px solid var(--border);
-  }
-
-  .page-info {
-    font-size: 12px;
-    color: var(--text-muted);
-    font-family: 'IBM Plex Mono', monospace;
-  }
-
+  .pagination { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-top: 1px solid var(--border); }
+  .page-info { font-size: 12px; color: var(--text-muted); font-family: 'IBM Plex Mono', monospace; }
   .page-btns { display: flex; gap: 6px; }
-
-  .page-btn {
-    padding: 5px 12px;
-    background: var(--bg-secondary);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    color: var(--text-secondary);
-    font-size: 12px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .page-btn:hover, .page-btn.active {
-    border-color: var(--accent-blue);
-    color: var(--accent-cyan);
-    background: rgba(45,125,210,0.1);
-  }
+  .page-btn { padding: 5px 12px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 6px; color: var(--text-secondary); font-size: 12px; cursor: pointer; transition: all 0.2s; }
+  .page-btn:hover, .page-btn.active { border-color: var(--accent-blue); color: var(--accent-cyan); background: rgba(45,125,210,0.1); }
 
   /* Loading */
-  .loading-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(10,14,26,0.9);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    backdrop-filter: blur(10px);
-  }
-
-  .spinner {
-    width: 50px;
-    height: 50px;
-    border: 3px solid var(--border);
-    border-top-color: var(--accent-cyan);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-    margin-bottom: 20px;
-  }
-
-  .loading-text {
-    font-family: 'IBM Plex Mono', monospace;
-    color: var(--text-secondary);
-    font-size: 13px;
-    letter-spacing: 2px;
-  }
+  .loading-overlay { position: fixed; inset: 0; background: rgba(10,14,26,0.9); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1000; backdrop-filter: blur(10px); }
+  .spinner { width: 50px; height: 50px; border: 3px solid var(--border); border-top-color: var(--accent-cyan); border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 20px; }
+  .loading-text { font-family: 'IBM Plex Mono', monospace; color: var(--text-secondary); font-size: 13px; letter-spacing: 2px; }
 
   @keyframes spin { to { transform: rotate(360deg); } }
-
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
   /* Toast */
-  .toast {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-size: 13px;
-    z-index: 999;
-    transform: translateX(120%);
-    transition: transform 0.3s ease;
-    border: 1px solid;
-  }
-
+  .toast { position: fixed; bottom: 24px; right: 24px; padding: 12px 20px; border-radius: 8px; font-size: 13px; z-index: 999; transform: translateX(120%); transition: transform 0.3s ease; border: 1px solid; }
   .toast.show { transform: translateX(0); }
   .toast.success { background: rgba(0,230,118,0.1); border-color: var(--accent-green); color: var(--accent-green); }
   .toast.error { background: rgba(255,61,90,0.1); border-color: var(--accent-red); color: var(--accent-red); }
   .toast.info { background: rgba(45,125,210,0.1); border-color: var(--accent-blue); color: var(--accent-cyan); }
 
-  /* Section title */
-  .section-title {
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--text-muted);
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .section-title::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  /* Empty state */
-  .empty-state {
-    text-align: center;
-    padding: 40px 20px;
-    color: var(--text-muted);
-    font-size: 13px;
-  }
-
+  /* Empty */
+  .empty-state { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 13px; }
   .empty-state-icon { font-size: 32px; margin-bottom: 12px; }
 
   /* Modal */
-  .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    backdrop-filter: blur(6px);
-    z-index: 500;
-    display: none;
-    align-items: center;
-    justify-content: center;
-  }
-
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(6px); z-index: 500; display: none; align-items: center; justify-content: center; }
   .modal-overlay.open { display: flex; }
-
-  .modal {
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-light);
-    border-radius: 16px;
-    width: 90%;
-    max-width: 600px;
-    max-height: 85vh;
-    overflow-y: auto;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-    animation: fadeInUp 0.3s ease;
-  }
-
-  .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 24px;
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    background: var(--bg-secondary);
-  }
-
-  .modal-title {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--text-primary);
-  }
-
-  .modal-close {
-    background: none;
-    border: none;
-    color: var(--text-secondary);
-    font-size: 20px;
-    cursor: pointer;
-    padding: 4px 8px;
-    border-radius: 4px;
-    transition: all 0.2s;
-  }
-
+  .modal { background: var(--bg-secondary); border: 1px solid var(--border-light); border-radius: 16px; width: 90%; max-width: 640px; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.6); animation: fadeInUp 0.3s ease; }
+  .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg-secondary); }
+  .modal-title { font-size: 16px; font-weight: 700; color: var(--text-primary); }
+  .modal-close { background: none; border: none; color: var(--text-secondary); font-size: 20px; cursor: pointer; padding: 4px 8px; border-radius: 4px; transition: all 0.2s; }
   .modal-close:hover { color: var(--accent-red); background: rgba(255,61,90,0.1); }
-
   .modal-body { padding: 24px; }
 
-  .detail-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-
-  .detail-item { }
-  .detail-item label {
-    font-size: 10px;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    display: block;
-    margin-bottom: 4px;
-  }
-
-  .detail-item span {
-    font-size: 13px;
-    color: var(--text-primary);
-    font-weight: 500;
-  }
-
+  .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .detail-item label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 4px; }
+  .detail-item span { font-size: 13px; color: var(--text-primary); font-weight: 500; }
   .detail-item.full { grid-column: 1 / -1; }
 
-  .cause-box {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 12px;
-    font-size: 13px;
-    line-height: 1.7;
-    color: var(--text-primary);
-  }
+  .cause-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 12px; font-size: 13px; line-height: 1.7; color: var(--text-primary); }
+  .fix-box { background: rgba(0,230,118,0.05); border: 1px solid rgba(0,230,118,0.25); border-radius: 8px; padding: 12px; font-size: 13px; line-height: 1.7; color: #4ade80; }
 
-  /* Row clickable */
-  tbody tr { cursor: pointer; }
+  /* Form */
+  .form-group { margin-bottom: 16px; }
+  .form-label { display: block; font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .form-input, .form-select, .form-textarea { width: 100%; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary); padding: 9px 12px; font-size: 13px; font-family: 'IBM Plex Sans Thai', sans-serif; outline: none; transition: border-color 0.2s; }
+  .form-textarea { min-height: 80px; resize: vertical; }
+  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--accent-blue); box-shadow: 0 0 0 2px rgba(45,125,210,0.15); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .btn-submit { width: 100%; padding: 11px; background: linear-gradient(135deg, var(--accent-blue), #1a5fa8); border: none; border-radius: 8px; color: #fff; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s; font-family: 'IBM Plex Sans Thai', sans-serif; margin-top: 8px; }
+  .btn-submit:hover { transform: translateY(-1px); box-shadow: var(--glow-blue); }
 
   /* Scrollbar */
   ::-webkit-scrollbar { width: 6px; height: 6px; }
   ::-webkit-scrollbar-track { background: var(--bg-primary); }
   ::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 3px; }
   ::-webkit-scrollbar-thumb:hover { background: var(--accent-blue); }
-
-  /* Next sync countdown */
-  .next-sync {
-    font-size: 10px;
-    color: var(--text-muted);
-    font-family: 'IBM Plex Mono', monospace;
-    margin-top: 2px;
-  }
-
-  .col-full { grid-column: 1 / -1; }
-
-  /* ===== ADD RECORD ===== */
-  .btn-add {
-    padding: 7px 18px;
-    background: rgba(0,230,118,0.12);
-    border: 1px solid var(--accent-green);
-    border-radius: 6px;
-    color: var(--accent-green);
-    font-size: 12px;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: 'IBM Plex Sans Thai', sans-serif;
-    font-weight: 600;
-  }
-
-  .btn-add:hover {
-    background: rgba(0,230,118,0.22);
-    box-shadow: 0 0 14px rgba(0,230,118,0.2);
-  }
-
-  .form-group { margin-bottom: 16px; }
-  .form-label {
-    display: block;
-    font-size: 11px;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 6px;
-  }
-
-  .form-input, .form-select, .form-textarea {
-    width: 100%;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    color: var(--text-primary);
-    padding: 9px 12px;
-    font-size: 13px;
-    font-family: 'IBM Plex Sans Thai', sans-serif;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  .form-textarea { min-height: 80px; resize: vertical; }
-
-  .form-input:focus, .form-select:focus, .form-textarea:focus {
-    border-color: var(--accent-blue);
-    box-shadow: 0 0 0 2px rgba(45,125,210,0.15);
-  }
-
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-  .btn-submit {
-    width: 100%;
-    padding: 11px;
-    background: linear-gradient(135deg, var(--accent-blue), #1a5fa8);
-    border: none;
-    border-radius: 8px;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: 'IBM Plex Sans Thai', sans-serif;
-    margin-top: 8px;
-  }
-
-  .btn-submit:hover {
-    transform: translateY(-1px);
-    box-shadow: var(--glow-blue);
-  }
-
-  /* Tabs */
-  .tab-bar {
-    display: flex;
-    gap: 2px;
-    padding: 4px;
-    background: var(--bg-primary);
-    border-radius: 8px;
-  }
-
-  .tab-btn {
-    padding: 6px 16px;
-    border: none;
-    border-radius: 6px;
-    background: transparent;
-    color: var(--text-secondary);
-    font-size: 12px;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: 'IBM Plex Sans Thai', sans-serif;
-  }
-
-  .tab-btn.active {
-    background: var(--bg-card);
-    color: var(--accent-cyan);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  }
 </style>
 </head>
 <body>
@@ -999,13 +420,17 @@
         </div>
       </div>
       <div class="form-group">
-        <label class="form-label">สาเหตุการพัง / รายละเอียดปัญหา</label>
+        <label class="form-label">สาเหตุ / รายละเอียดปัญหา</label>
         <textarea class="form-textarea" id="f_cause" placeholder="ระบุสาเหตุ..."></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">วิธีการแก้ไข</label>
+        <textarea class="form-textarea" id="f_fix" placeholder="ระบุวิธีการแก้ไข..."></textarea>
       </div>
       <div class="form-row">
         <div class="form-group">
           <label class="form-label">ผู้ดำเนินการแก้ไข</label>
-          <input class="form-input" id="f_operator" placeholder="ชื่อช่าง">
+          <input class="form-input" id="f_operator" placeholder="ชื่อช่าง (คั่นด้วย , หากหลายคน)">
         </div>
         <div class="form-group">
           <label class="form-label">สถานะ</label>
@@ -1034,13 +459,11 @@
         <p>FACILITY MANAGEMENT SYSTEM · SUT</p>
       </div>
     </div>
-
     <div class="header-center">
       <div class="datetime-display" id="clockDisplay">00:00:00</div>
       <div class="date-display" id="dateDisplay">---</div>
       <div class="next-sync" id="nextSyncText">ถัดไป: --:--</div>
     </div>
-
     <div class="header-right">
       <div class="sync-indicator">
         <div class="sync-dot" id="syncDot"></div>
@@ -1054,7 +477,6 @@
     </div>
   </div>
 
-  <!-- Filter Bar -->
   <div class="filter-bar">
     <span class="filter-label">🔍 ค้นหา:</span>
     <div class="filter-group">
@@ -1081,15 +503,11 @@
     </div>
     <div class="filter-group">
       <span class="filter-label">เครื่องจักร:</span>
-      <select class="filter-select" id="filterMachine">
-        <option value="">ทั้งหมด</option>
-      </select>
+      <select class="filter-select" id="filterMachine"><option value="">ทั้งหมด</option></select>
     </div>
     <div class="filter-group">
       <span class="filter-label">ผู้แก้ไข:</span>
-      <select class="filter-select" id="filterOperator">
-        <option value="">ทั้งหมด</option>
-      </select>
+      <select class="filter-select" id="filterOperator"><option value="">ทั้งหมด</option></select>
     </div>
     <button class="btn-filter" onclick="applyFilters()">🔍 กรอง</button>
     <button class="btn-clear" onclick="clearFilters()">✕ ล้าง</button>
@@ -1099,38 +517,69 @@
 <!-- MAIN -->
 <main class="main">
 
-  <!-- KPI -->
+  <!-- KPI: 7 cards including MTTR & MTBF -->
   <div class="kpi-grid">
     <div class="kpi-card total" style="animation-delay:0.05s">
       <span class="kpi-icon">📋</span>
       <div class="kpi-value" id="kpiTotal">0</div>
       <div class="kpi-label">MO ทั้งหมด</div>
     </div>
-    <div class="kpi-card breakdown" style="animation-delay:0.1s">
+    <div class="kpi-card breakdown" style="animation-delay:0.08s">
       <span class="kpi-icon">🔴</span>
       <div class="kpi-value" id="kpiBreakdown">0</div>
       <div class="kpi-label">BreakDown</div>
     </div>
-    <div class="kpi-card shutdown" style="animation-delay:0.15s">
+    <div class="kpi-card shutdown" style="animation-delay:0.11s">
       <span class="kpi-icon">🟠</span>
       <div class="kpi-value" id="kpiShutdown">0</div>
       <div class="kpi-label">Shutdown</div>
     </div>
-    <div class="kpi-card downtime" style="animation-delay:0.2s">
+    <div class="kpi-card downtime" style="animation-delay:0.14s">
       <span class="kpi-icon">⏱️</span>
       <div class="kpi-value" id="kpiDowntime">0<span class="kpi-unit">ชม.</span></div>
       <div class="kpi-label">Downtime รวม</div>
     </div>
-    <div class="kpi-card operators" style="animation-delay:0.25s">
+    <div class="kpi-card operators" style="animation-delay:0.17s">
       <span class="kpi-icon">👷</span>
       <div class="kpi-value" id="kpiOperators">0</div>
       <div class="kpi-label">ช่างที่ดำเนินการ</div>
+    </div>
+    <!-- ข้อ 4: MTTR -->
+    <div class="kpi-card mttr" style="animation-delay:0.20s">
+      <span class="kpi-icon">🔧</span>
+      <div class="kpi-value" id="kpiMTTR">—<span class="kpi-unit">ชม.</span></div>
+      <div class="kpi-label">MTTR (เฉลี่ยเวลาซ่อม)</div>
+      <div class="kpi-formula" id="mttrFormula">= Downtime รวม ÷ จำนวน BD</div>
+    </div>
+    <!-- ข้อ 4: MTBF -->
+    <div class="kpi-card mtbf" style="animation-delay:0.23s">
+      <span class="kpi-icon">📐</span>
+      <div class="kpi-value" id="kpiMTBF">—<span class="kpi-unit">ชม.</span></div>
+      <div class="kpi-label">MTBF (เฉลี่ยระหว่างพัง)</div>
+      <div class="kpi-formula" id="mtbfFormula">= (Op.Hrs − DT) ÷ BD</div>
     </div>
   </div>
 
   <!-- Row 1: Charts -->
   <div class="dashboard-grid">
-    <div class="card" style="animation-delay:0.3s">
+    <!-- ข้อ 1: กราฟแท่งคู่ BD + SD รายเดือน -->
+    <div class="card" style="animation-delay:0.28s">
+      <div class="card-header">
+        <span class="card-title"><span class="card-title-icon">📈</span> สรุป BreakDown & Shutdown รายเดือน</span>
+        <span class="card-badge">รายเดือน</span>
+      </div>
+      <div class="card-body">
+        <div class="chart-wrap">
+          <canvas id="trendChart"></canvas>
+        </div>
+        <div class="chart-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:#ff3d5a;"></div>BreakDown</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#ff9800;"></div>Shutdown</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="animation-delay:0.33s">
       <div class="card-header">
         <span class="card-title"><span class="card-title-icon">📊</span> สัดส่วนประเภทงาน</span>
         <span class="card-badge" id="chartTotalBadge">0 รายการ</span>
@@ -1141,23 +590,11 @@
         </div>
       </div>
     </div>
-
-    <div class="card" style="animation-delay:0.35s">
-      <div class="card-header">
-        <span class="card-title"><span class="card-title-icon">📈</span> แนวโน้ม BreakDown รายเดือน</span>
-      </div>
-      <div class="card-body">
-        <div class="chart-wrap">
-          <canvas id="trendChart"></canvas>
-        </div>
-      </div>
-    </div>
   </div>
 
   <!-- Row 2: Top 3 + Top 5 + Operators -->
   <div class="dashboard-grid-3">
-    <!-- Top 3 Problems -->
-    <div class="card" style="animation-delay:0.4s">
+    <div class="card" style="animation-delay:0.38s">
       <div class="card-header">
         <span class="card-title">🏆 Top 3 ปัญหาที่เกิดซ้ำ</span>
         <span class="card-badge">Problems</span>
@@ -1169,8 +606,7 @@
       </div>
     </div>
 
-    <!-- Top 5 Machines -->
-    <div class="card" style="animation-delay:0.45s">
+    <div class="card" style="animation-delay:0.43s">
       <div class="card-header">
         <span class="card-title">⚙️ Top 5 เครื่องจักรที่พังบ่อย</span>
         <span class="card-badge">Machines</span>
@@ -1182,11 +618,11 @@
       </div>
     </div>
 
-    <!-- Operator Stats -->
-    <div class="card" style="animation-delay:0.5s">
+    <!-- ข้อ 3: Operator แยกรายคน -->
+    <div class="card" style="animation-delay:0.48s">
       <div class="card-header">
         <span class="card-title">👷 สถิติผู้ดำเนินการ</span>
-        <span class="card-badge">Operators</span>
+        <span class="card-badge" id="opCountBadge">0 คน</span>
       </div>
       <div class="card-body">
         <div id="operatorList">
@@ -1196,25 +632,23 @@
     </div>
   </div>
 
-  <!-- Table -->
-  <div class="card" style="animation-delay:0.55s">
+  <!-- ข้อ 2: ตารางเฉพาะ BreakDown + สาเหตุ + วิธีแก้ไข -->
+  <div class="card" style="animation-delay:0.53s">
     <div class="card-header">
-      <span class="card-title">📋 รายการ MO ทั้งหมด</span>
-      <div style="display:flex;gap:8px;align-items:center;">
-        <span class="card-badge" id="tableCountBadge">0 รายการ</span>
-      </div>
+      <span class="card-title">🔴 รายการ BreakDown — สาเหตุ & วิธีการแก้ไข</span>
+      <span class="card-badge" id="tableCountBadge">0 รายการ</span>
     </div>
     <div class="table-wrap">
-      <table id="moTable">
+      <table>
         <thead>
           <tr>
             <th onclick="sortTable('mo_number')">เลข MO ⇅</th>
             <th onclick="sortTable('date')">วันที่ ⇅</th>
             <th onclick="sortTable('machine_type')">ประเภทเครื่องจักร ⇅</th>
-            <th onclick="sortTable('machine_id')">หมายเลขเครื่องจักร ⇅</th>
-            <th onclick="sortTable('type')">ประเภทงาน ⇅</th>
+            <th onclick="sortTable('machine_id')">หมายเลข ⇅</th>
             <th onclick="sortTable('downtime')">Downtime (ชม.) ⇅</th>
-            <th>สาเหตุ</th>
+            <th>สาเหตุ / รายละเอียดปัญหา</th>
+            <th>วิธีการแก้ไข</th>
             <th onclick="sortTable('operator')">ผู้ดำเนินการ ⇅</th>
             <th onclick="sortTable('status')">สถานะ ⇅</th>
           </tr>
@@ -1225,7 +659,7 @@
       </table>
     </div>
     <div class="pagination">
-      <div class="page-info" id="pageInfo">แสดง 0-0 จาก 0 รายการ</div>
+      <div class="page-info" id="pageInfo">แสดง 0–0 จาก 0 รายการ</div>
       <div class="page-btns" id="pageBtns"></div>
     </div>
   </div>
@@ -1238,31 +672,16 @@
 // ============================================================
 const SHEET_ID = '14mZzwsT57fsnlHboRd8v6BV5EbT0_QaQwxZA1S_3DAs';
 const GID = '0';
-const SYNC_INTERVAL_MS = 2 * 60 * 60 * 1000; // 2 hours
+const SYNC_INTERVAL_MS = 2 * 60 * 60 * 1000;
 const ROWS_PER_PAGE = 15;
-
-// Column mapping from Google Sheet (adjust to match your columns)
-// Expected columns: MO, Date, MachineType, MachineID, Type, Downtime, Cause, Operator, Status
-const COL = {
-  Item: 0,
-  Description: 1,
-  Type: 2,
-  MCName: 3,
-  MCNo: 4,
-  เวลาที่ใช้ซ่อม: 12,
-   รายละเอียดปัญหา: 13,
-  สาเหตุ: 14,
-  การแก้ไข: 15,
-  อะไหล่: 16,
-  ผู้ซ่อม: 17,
-  MONo: 18
-};
+const TOTAL_MACHINES = 300; // จำนวนเครื่องจักรรวมทั้งหมด
 
 // ============================================================
 // State
 // ============================================================
 let allData = [];
 let filteredData = [];
+let bdTableData = []; // เฉพาะ BreakDown สำหรับตาราง
 let currentPage = 1;
 let sortKey = 'date';
 let sortAsc = false;
@@ -1298,7 +717,6 @@ function updateClock() {
     }
   }
 }
-
 setInterval(updateClock, 1000);
 updateClock();
 
@@ -1313,41 +731,36 @@ function showToast(msg, type = 'info', duration = 3000) {
 }
 
 // ============================================================
-// Fetch Google Sheet as CSV
+// Fetch Google Sheet
 // ============================================================
 async function fetchSheetData() {
   const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=${GID}`;
-  //https://docs.google.com/spreadsheets/d/14mZzwsT57fsnlHboRd8v6BV5EbT0_QaQwxZA1S_3DAs/edit?usp=sharing
   const resp = await fetch(url);
   if (!resp.ok) throw new Error('HTTP ' + resp.status);
-  const text = await resp.text();
-  return parseCSV(text);
+  return parseCSV(await resp.text());
 }
 
 function parseCSV(text) {
   const lines = text.trim().split('\n');
   if (lines.length < 2) return [];
-
   const rows = [];
-
   for (let i = 1; i < lines.length; i++) {
     const cols = splitCSVLine(lines[i]);
     if (cols.every(c => !c.trim())) continue;
-
     rows.push({
-      mo_number: cols[18]?.trim() || '',   // MONo
-      date: cols[0]?.trim() || '',        // Item (วันที่)
-      machine_type: cols[3]?.trim() || '', // MCName
-      machine_id: cols[4]?.trim() || '',   // MCNo
-      type: normalizeType(cols[2]?.trim() || ''), // Type
-      downtime: parseFloat(cols[12]) || 0, // เวลาที่ใช้ซ่อม
-      cause: cols[13]?.trim() || '',       // รายละเอียดปัญหา
-      operator: cols[17]?.trim() || '',    // ผู้ซ่อม
-      status: cols[15]?.trim() || '',      // การแก้ไข
+      mo_number:    cols[18]?.trim() || '',
+      date:         cols[0]?.trim()  || '',
+      machine_type: cols[3]?.trim()  || '',
+      machine_id:   cols[4]?.trim()  || '',
+      type:         normalizeType(cols[2]?.trim() || ''),
+      downtime:     parseFloat(cols[12]) || 0,
+      cause:        cols[13]?.trim() || '',  // รายละเอียดปัญหา
+      fix:          cols[15]?.trim() || '',  // การแก้ไข
+      operator:     cols[17]?.trim() || '',  // ผู้ซ่อม
+      status:       cols[15]?.trim() || '',  // การแก้ไข (ใช้เป็น status ด้วย)
       _source: 'sheet'
     });
   }
-
   return rows;
 }
 
@@ -1369,17 +782,15 @@ function normalizeType(t) {
   if (low.includes('break') || low === 'bd') return 'BreakDown';
   if (low.includes('shut') || low === 'sd') return 'Shutdown';
   if (low === 'pm' || low.includes('preventive')) return 'PM';
-  if (t) return t;
-  return 'อื่นๆ';
+  return t || 'อื่นๆ';
 }
 
 // ============================================================
-// Local records (add via form)
+// Local records
 // ============================================================
 function getLocalRecords() {
   try { return JSON.parse(localStorage.getItem('mo_local_records') || '[]'); } catch { return []; }
 }
-
 function saveLocalRecord(r) {
   const arr = getLocalRecords();
   arr.push(r);
@@ -1387,7 +798,7 @@ function saveLocalRecord(r) {
 }
 
 // ============================================================
-// Load & merge data
+// Load & merge
 // ============================================================
 async function loadData(manual = false) {
   const dot = document.getElementById('syncDot');
@@ -1397,14 +808,10 @@ async function loadData(manual = false) {
 
   try {
     let sheetRows = [];
-    try {
-      sheetRows = await fetchSheetData();
-    } catch(e) {
-      showToast('⚠️ ไม่สามารถดึงข้อมูล Google Sheet ได้ (' + e.message + ')', 'error', 5000);
-    }
+    try { sheetRows = await fetchSheetData(); }
+    catch(e) { showToast('⚠️ ไม่สามารถดึงข้อมูล Google Sheet (' + e.message + ')', 'error', 5000); }
 
-    const localRows = getLocalRecords();
-    allData = [...sheetRows, ...localRows];
+    allData = [...sheetRows, ...getLocalRecords()];
 
     const now = new Date();
     const ts = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
@@ -1424,11 +831,25 @@ async function loadData(manual = false) {
 }
 
 // ============================================================
-// Filter Dropdowns
+// ข้อ 3: แยก Operator หลายชื่อ (คั่นด้วย , / + & หรือ และ)
+// ============================================================
+function splitOperators(str) {
+  if (!str) return [];
+  return str.split(/[,\/+&]|และ/)
+    .map(s => s.trim())
+    .filter(s => s.length > 0);
+}
+
+// ============================================================
+// Filter Dropdowns — ใช้ชื่อ operator แบบแยกเดี่ยว
 // ============================================================
 function populateFilterDropdowns() {
   const machines = [...new Set(allData.map(r => r.machine_id).filter(Boolean))].sort();
-  const operators = [...new Set(allData.map(r => r.operator).filter(Boolean))].sort();
+
+  // รวมชื่อ operator แบบแยกแต่ละคน
+  const opSet = new Set();
+  allData.forEach(r => splitOperators(r.operator).forEach(n => opSet.add(n)));
+  const operators = [...opSet].sort();
 
   const mSel = document.getElementById('filterMachine');
   const curM = mSel.value;
@@ -1445,18 +866,18 @@ function populateFilterDropdowns() {
 // Filters
 // ============================================================
 function applyFilters() {
-  const text = document.getElementById('filterText').value.toLowerCase();
-  const type = document.getElementById('filterType').value;
+  const text     = document.getElementById('filterText').value.toLowerCase();
+  const type     = document.getElementById('filterType').value;
   const dateFrom = document.getElementById('filterDateFrom').value;
-  const dateTo = document.getElementById('filterDateTo').value;
-  const machine = document.getElementById('filterMachine').value;
+  const dateTo   = document.getElementById('filterDateTo').value;
+  const machine  = document.getElementById('filterMachine').value;
   const operator = document.getElementById('filterOperator').value;
 
   filteredData = allData.filter(r => {
     if (text && !`${r.mo_number} ${r.machine_id} ${r.machine_type} ${r.cause} ${r.operator}`.toLowerCase().includes(text)) return false;
     if (type && r.type !== type) return false;
     if (machine && r.machine_id !== machine) return false;
-    if (operator && r.operator !== operator) return false;
+    if (operator && !splitOperators(r.operator).includes(operator)) return false;
     if (dateFrom || dateTo) {
       const rd = parseDate(r.date);
       if (rd) {
@@ -1473,28 +894,17 @@ function applyFilters() {
 }
 
 function clearFilters() {
-  document.getElementById('filterText').value = '';
-  document.getElementById('filterType').value = '';
-  document.getElementById('filterDateFrom').value = '';
-  document.getElementById('filterDateTo').value = '';
-  document.getElementById('filterMachine').value = '';
-  document.getElementById('filterOperator').value = '';
+  ['filterText','filterDateFrom','filterDateTo'].forEach(id => document.getElementById(id).value = '');
+  ['filterType','filterMachine','filterOperator'].forEach(id => document.getElementById(id).value = '');
   applyFilters();
 }
 
-function handleFilterKey(e) {
-  if (e.key === 'Enter') applyFilters();
-}
+function handleFilterKey(e) { if (e.key === 'Enter') applyFilters(); }
 
 function parseDate(str) {
   if (!str) return null;
-
-  // รองรับ dd/mm/yyyy
   const parts = str.split('/');
-  if (parts.length === 3) {
-    return new Date(parts[2], parts[1] - 1, parts[0]);
-  }
-
+  if (parts.length === 3) return new Date(parts[2], parts[1]-1, parts[0]);
   const d = new Date(str);
   return isNaN(d) ? null : d;
 }
@@ -1511,8 +921,7 @@ function sortTable(key) {
 
 function sortData() {
   filteredData.sort((a, b) => {
-    let va = a[sortKey] || '';
-    let vb = b[sortKey] || '';
+    let va = a[sortKey] || '', vb = b[sortKey] || '';
     if (sortKey === 'downtime') return sortAsc ? va-vb : vb-va;
     if (sortKey === 'date') {
       const da = parseDate(va), db = parseDate(vb);
@@ -1520,34 +929,88 @@ function sortData() {
     }
     return sortAsc ? String(va).localeCompare(String(vb),'th') : String(vb).localeCompare(String(va),'th');
   });
+  // อัปเดต bdTableData ด้วย
+  bdTableData = filteredData.filter(r => r.type === 'BreakDown');
 }
 
 // ============================================================
-// Update all dashboard widgets
+// ข้อ 4: คำนวณ MTTR & MTBF
+// สูตรมาตรฐาน IEC/ISO:
+//   MTTR = Total Repair Downtime ÷ Number of Failures
+//   MTBF = (Total Operating Time − Total Downtime) ÷ Number of Failures
+//   Total Operating Time = TOTAL_MACHINES × ช่วงเวลา (ชม.)
+// ============================================================
+function calcReliability(data) {
+  const failures = data.filter(r => r.type === 'BreakDown');
+  const n = failures.length;
+  if (n === 0) return null;
+
+  const totalDT = failures.reduce((s, r) => s + r.downtime, 0);
+  const mttr = totalDT / n;
+
+  // หาช่วงเวลาจากวันแรก-สุดท้ายในข้อมูล
+  const dates = data.map(r => parseDate(r.date)).filter(Boolean);
+  let periodHours = 24 * 30; // fallback: 30 วัน
+
+  if (dates.length >= 2) {
+    const minD = new Date(Math.min(...dates));
+    const maxD = new Date(Math.max(...dates));
+    const diffH = (maxD - minD) / 3600000;
+    if (diffH > 0) periodHours = diffH;
+  }
+
+  // ชั่วโมงการทำงานรวม = 300 เครื่อง × ช่วงเวลา
+  const totalOpHours = TOTAL_MACHINES * periodHours;
+  // Operating time หักด้วย downtime รวม (ของ breakdown)
+  const opTime = Math.max(totalOpHours - totalDT, 0);
+  const mtbf = opTime / n;
+
+  return { mttr, mtbf, n, totalDT, totalOpHours: Math.round(totalOpHours), periodDays: Math.round(periodHours/24) };
+}
+
+// ============================================================
+// Update Dashboard
 // ============================================================
 function updateDashboard() {
   const data = filteredData;
-
-  // KPIs
   const bd = data.filter(r => r.type === 'BreakDown');
   const sd = data.filter(r => r.type === 'Shutdown');
-  const downtime = data.reduce((s, r) => s + r.downtime, 0);
-  const operators = new Set(data.map(r => r.operator).filter(Boolean));
+  const totalDT = data.reduce((s,r) => s + r.downtime, 0);
+
+  // ข้อ 3: นับ operator แบบแยกรายคน
+  const opSet = new Set();
+  data.forEach(r => splitOperators(r.operator).forEach(n => opSet.add(n)));
 
   document.getElementById('kpiTotal').textContent = data.length;
   document.getElementById('kpiBreakdown').textContent = bd.length;
   document.getElementById('kpiShutdown').textContent = sd.length;
-  document.getElementById('kpiDowntime').innerHTML = downtime.toFixed(1) + '<span class="kpi-unit">ชม.</span>';
-  document.getElementById('kpiOperators').textContent = operators.size;
+  document.getElementById('kpiDowntime').innerHTML = totalDT.toFixed(1) + '<span class="kpi-unit">ชม.</span>';
+  document.getElementById('kpiOperators').textContent = opSet.size;
   document.getElementById('chartTotalBadge').textContent = data.length + ' รายการ';
-  document.getElementById('tableCountBadge').textContent = data.length + ' รายการ';
+
+  // ข้อ 4: MTTR & MTBF
+  const rel = calcReliability(data);
+  if (rel) {
+    document.getElementById('kpiMTTR').innerHTML = rel.mttr.toFixed(2) + '<span class="kpi-unit">ชม.</span>';
+    document.getElementById('kpiMTBF').innerHTML = rel.mtbf.toFixed(1) + '<span class="kpi-unit">ชม.</span>';
+    document.getElementById('mttrFormula').textContent = `= ${rel.totalDT.toFixed(1)} ÷ ${rel.n} ครั้ง`;
+    document.getElementById('mtbfFormula').textContent = `300 เครื่อง × ${rel.periodDays} วัน`;
+  } else {
+    document.getElementById('kpiMTTR').innerHTML = '—<span class="kpi-unit">ชม.</span>';
+    document.getElementById('kpiMTBF').innerHTML = '—<span class="kpi-unit">ชม.</span>';
+    document.getElementById('mttrFormula').textContent = 'ไม่มีข้อมูล BreakDown';
+    document.getElementById('mtbfFormula').textContent = '= (Op.Hrs − DT) ÷ BD';
+  }
+
+  // ข้อ 2: badge ตาราง BD
+  document.getElementById('tableCountBadge').textContent = bd.length + ' รายการ';
 
   updateTypeChart(data);
-  updateTrendChart(data);
+  updateTrendChart(data); // ข้อ 1
   updateTop3(data);
   updateTop5(data);
-  updateOperatorStats(data);
-  renderTable();
+  updateOperatorStats(data); // ข้อ 3
+  renderTable();             // ข้อ 2
 }
 
 // ============================================================
@@ -1559,20 +1022,16 @@ function updateTypeChart(data) {
     if (counts[r.type] !== undefined) counts[r.type]++;
     else counts['อื่นๆ']++;
   });
-
-  const labels = Object.keys(counts);
   const vals = Object.values(counts);
 
   const cfg = {
     type: 'doughnut',
     data: {
-      labels,
-      datasets: [{
-        data: vals,
+      labels: Object.keys(counts),
+      datasets: [{ data: vals,
         backgroundColor: ['rgba(255,61,90,0.8)','rgba(255,152,0,0.8)','rgba(0,212,255,0.7)','rgba(122,141,176,0.6)'],
         borderColor: ['#ff3d5a','#ff9800','#00d4ff','#7a8db0'],
-        borderWidth: 2,
-        hoverOffset: 8
+        borderWidth: 2, hoverOffset: 8
       }]
     },
     options: {
@@ -1589,52 +1048,60 @@ function updateTypeChart(data) {
   else { typeChart = new Chart(document.getElementById('typeChart'), cfg); }
 }
 
+// ข้อ 1: กราฟแท่งคู่ BreakDown + Shutdown รายเดือน
 function updateTrendChart(data) {
   const monthly = {};
-  data.filter(r => r.type === 'BreakDown').forEach(r => {
+  data.filter(r => r.type === 'BreakDown' || r.type === 'Shutdown').forEach(r => {
     const d = parseDate(r.date);
     if (!d) return;
     const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
-    monthly[key] = (monthly[key] || 0) + 1;
+    if (!monthly[key]) monthly[key] = { BD: 0, SD: 0 };
+    if (r.type === 'BreakDown') monthly[key].BD++;
+    else monthly[key].SD++;
   });
 
   const sorted = Object.keys(monthly).sort();
+  const mNames = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
   const labels = sorted.map(k => {
     const [y, m] = k.split('-');
-    const mNames = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
     return `${mNames[parseInt(m)-1]} ${parseInt(y)+543}`;
   });
 
-  const cfg = {
-    type: 'bar',
-    data: {
-      labels: labels.length ? labels : ['ไม่มีข้อมูล'],
-      datasets: [{
-        label: 'BreakDown',
-        data: sorted.length ? sorted.map(k => monthly[k]) : [0],
-        backgroundColor: 'rgba(255,61,90,0.6)',
-        borderColor: '#ff3d5a',
-        borderWidth: 2,
-        borderRadius: 4,
-        hoverBackgroundColor: 'rgba(255,61,90,0.85)'
-      }]
+  const bdVals = sorted.map(k => monthly[k].BD);
+  const sdVals = sorted.map(k => monthly[k].SD);
+
+  const datasets = [
+    { label: 'BreakDown', data: bdVals.length ? bdVals : [0],
+      backgroundColor: 'rgba(255,61,90,0.7)', borderColor: '#ff3d5a',
+      borderWidth: 2, borderRadius: 4, hoverBackgroundColor: 'rgba(255,61,90,0.9)' },
+    { label: 'Shutdown', data: sdVals.length ? sdVals : [0],
+      backgroundColor: 'rgba(255,152,0,0.65)', borderColor: '#ff9800',
+      borderWidth: 2, borderRadius: 4, hoverBackgroundColor: 'rgba(255,152,0,0.9)' }
+  ];
+
+  const opts = {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.raw} ครั้ง` } }
     },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false } },
-      scales: {
-        x: { grid: { color:'rgba(30,45,80,0.5)' }, ticks: { color:'#7a8db0', font:{size:11} } },
-        y: { grid: { color:'rgba(30,45,80,0.5)' }, ticks: { color:'#7a8db0', font:{size:11}, stepSize:1 }, beginAtZero: true }
-      }
+    scales: {
+      x: { grid: { color:'rgba(30,45,80,0.5)' }, ticks: { color:'#7a8db0', font:{size:11} } },
+      y: { grid: { color:'rgba(30,45,80,0.5)' }, ticks: { color:'#7a8db0', font:{size:11}, stepSize:1 }, beginAtZero: true }
     }
   };
 
   if (trendChart) {
-    trendChart.data.labels = cfg.data.labels;
-    trendChart.data.datasets[0].data = cfg.data.datasets[0].data;
+    trendChart.data.labels = labels.length ? labels : ['ไม่มีข้อมูล'];
+    trendChart.data.datasets[0].data = datasets[0].data;
+    trendChart.data.datasets[1].data = datasets[1].data;
     trendChart.update();
   } else {
-    trendChart = new Chart(document.getElementById('trendChart'), cfg);
+    trendChart = new Chart(document.getElementById('trendChart'), {
+      type: 'bar',
+      data: { labels: labels.length ? labels : ['ไม่มีข้อมูล'], datasets },
+      options: opts
+    });
   }
 }
 
@@ -1643,39 +1110,32 @@ function updateTrendChart(data) {
 // ============================================================
 function updateTop3(data) {
   const bd = data.filter(r => r.type === 'BreakDown' && r.cause);
-  const keywords = groupByKeywords(bd.map(r => r.cause));
-  const sorted = Object.entries(keywords).sort((a,b) => b[1].count - a[1].count).slice(0,3);
+  const kw = groupByKeywords(bd.map(r => r.cause));
+  const sorted = Object.entries(kw).sort((a,b) => b[1].count - a[1].count).slice(0,3);
   const max = sorted[0]?.[1].count || 1;
-
   const el = document.getElementById('top3List');
-  if (!sorted.length) {
-    el.innerHTML = '<li class="empty-state"><div class="empty-state-icon">📭</div>ไม่มีข้อมูล BreakDown</li>';
-    return;
-  }
 
-  const rankClasses = ['rank-1','rank-2','rank-3'];
-  const colors = ['#ffd600','#00d4ff','#ff6b35'];
-  el.innerHTML = sorted.map(([key, val], i) => `
+  if (!sorted.length) { el.innerHTML = '<li class="empty-state"><div class="empty-state-icon">📭</div>ไม่มีข้อมูล</li>'; return; }
+
+  const rankCls = ['rank-1','rank-2','rank-3'];
+  const colors  = ['#ffd600','#00d4ff','#ff6b35'];
+  el.innerHTML = sorted.map(([key,val],i) => `
     <li class="top-item">
-      <div class="rank-badge ${rankClasses[i]}">#${i+1}</div>
+      <div class="rank-badge ${rankCls[i]}">#${i+1}</div>
       <div class="top-info">
         <div class="top-name" title="${val.sample}">${val.sample}</div>
         <div class="top-sub">คีย์เวิร์ด: ${key}</div>
-        <div class="progress-bar-wrap">
-          <div class="progress-bar" style="width:${(val.count/max*100).toFixed(0)}%;background:${colors[i]}"></div>
-        </div>
+        <div class="progress-bar-wrap"><div class="progress-bar" style="width:${(val.count/max*100).toFixed(0)}%;background:${colors[i]}"></div></div>
       </div>
       <div class="top-count">${val.count}<span class="top-count-label">ครั้ง</span></div>
-    </li>
-  `).join('');
+    </li>`).join('');
 }
 
 function groupByKeywords(causes) {
   const map = {};
   causes.forEach(cause => {
-    const tokens = tokenize(cause);
-    tokens.forEach(token => {
-      if (!map[token]) map[token] = { count: 0, sample: cause };
+    tokenize(cause).forEach(token => {
+      if (!map[token]) map[token] = { count:0, sample: cause };
       map[token].count++;
       if (cause.length < map[token].sample.length) map[token].sample = cause;
     });
@@ -1684,176 +1144,163 @@ function groupByKeywords(causes) {
 }
 
 function tokenize(text) {
-  const stopwords = new Set(['ของ','และ','หรือ','ที่','การ','เนื่อง','จาก','ใน','มี','ไม่','ทำ','ให้','เกิด','ปัญหา','เสีย','พัง','the','of','and','or','to','a','is','in','เพราะ','เนื่องจาก','ด้าน']);
-  return text.toLowerCase()
-    .replace(/[^\u0E00-\u0E7Fa-z0-9\s]/g, ' ')
-    .split(/\s+/)
-    .filter(w => w.length > 2 && !stopwords.has(w));
+  const stop = new Set(['ของ','และ','หรือ','ที่','การ','เนื่อง','จาก','ใน','มี','ไม่','ทำ','ให้','เกิด','ปัญหา','เสีย','พัง','the','of','and','or','to','a','is','in','เพราะ','เนื่องจาก','ด้าน']);
+  return text.toLowerCase().replace(/[^\u0E00-\u0E7Fa-z0-9\s]/g,' ').split(/\s+/).filter(w => w.length > 2 && !stop.has(w));
 }
 
 // ============================================================
 // Top 5 Machines
 // ============================================================
 function updateTop5(data) {
-  const bd = data.filter(r => r.type === 'BreakDown');
-  const machineCounts = {};
-  bd.forEach(r => {
+  const mc = {};
+  data.filter(r => r.type === 'BreakDown').forEach(r => {
     const key = r.machine_id || r.machine_type || 'ไม่ระบุ';
-    if (!machineCounts[key]) machineCounts[key] = { count: 0, type: r.machine_type, downtime: 0 };
-    machineCounts[key].count++;
-    machineCounts[key].downtime += r.downtime;
+    if (!mc[key]) mc[key] = { count:0, type:r.machine_type, dt:0 };
+    mc[key].count++; mc[key].dt += r.downtime;
   });
 
-  const sorted = Object.entries(machineCounts).sort((a,b) => b[1].count - a[1].count).slice(0,5);
+  const sorted = Object.entries(mc).sort((a,b) => b[1].count - a[1].count).slice(0,5);
   const max = sorted[0]?.[1].count || 1;
-  const rankClasses = ['rank-1','rank-2','rank-3','rank-4','rank-5'];
-  const colors = ['#ffd600','#00d4ff','#ff6b35','#2d7dd2','#7a8db0'];
-
   const el = document.getElementById('top5List');
-  if (!sorted.length) {
-    el.innerHTML = '<li class="empty-state"><div class="empty-state-icon">📭</div>ไม่มีข้อมูล</li>';
-    return;
-  }
+  if (!sorted.length) { el.innerHTML = '<li class="empty-state"><div class="empty-state-icon">📭</div>ไม่มีข้อมูล</li>'; return; }
 
-  el.innerHTML = sorted.map(([id, val], i) => `
+  const rankCls = ['rank-1','rank-2','rank-3','rank-4','rank-5'];
+  const colors  = ['#ffd600','#00d4ff','#ff6b35','#2d7dd2','#7a8db0'];
+  el.innerHTML = sorted.map(([id,val],i) => `
     <li class="top-item">
-      <div class="rank-badge ${rankClasses[i]}">#${i+1}</div>
+      <div class="rank-badge ${rankCls[i]}">#${i+1}</div>
       <div class="top-info">
         <div class="top-name">${id}</div>
-        <div class="top-sub">${val.type || ''} · Downtime ${val.downtime.toFixed(1)} ชม.</div>
-        <div class="progress-bar-wrap">
-          <div class="progress-bar" style="width:${(val.count/max*100).toFixed(0)}%;background:${colors[i]}"></div>
-        </div>
+        <div class="top-sub">${val.type||''} · Downtime ${val.dt.toFixed(1)} ชม.</div>
+        <div class="progress-bar-wrap"><div class="progress-bar" style="width:${(val.count/max*100).toFixed(0)}%;background:${colors[i]}"></div></div>
       </div>
       <div class="top-count">${val.count}<span class="top-count-label">ครั้ง</span></div>
-    </li>
-  `).join('');
+    </li>`).join('');
 }
 
 // ============================================================
-// Operator Stats
+// ข้อ 3: Operator Stats — นับแยกรายคน
+// ถ้าฟิลด์มีหลายชื่อ → แยก → แต่ละชื่อนับ +1 งานอิสระ
 // ============================================================
 function updateOperatorStats(data) {
-  const opCounts = {};
+  const opCount = {};
   data.forEach(r => {
-    if (!r.operator) return;
-    opCounts[r.operator] = (opCounts[r.operator] || 0) + 1;
+    splitOperators(r.operator).forEach(name => {
+      opCount[name] = (opCount[name] || 0) + 1;
+    });
   });
 
-  const sorted = Object.entries(opCounts).sort((a,b) => b[1]-a[1]);
+  const sorted = Object.entries(opCount).sort((a,b) => b[1]-a[1]);
   const el = document.getElementById('operatorList');
-  if (!sorted.length) {
-    el.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📭</div>ไม่มีข้อมูล</div>';
-    return;
-  }
+  document.getElementById('opCountBadge').textContent = sorted.length + ' คน';
 
-  el.innerHTML = sorted.map(([name, cnt]) => `
+  if (!sorted.length) { el.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📭</div>ไม่มีข้อมูล</div>'; return; }
+
+  el.innerHTML = sorted.map(([name,cnt]) => `
     <div class="operator-item">
       <div class="operator-avatar">${name.charAt(0).toUpperCase()}</div>
       <div class="operator-name">${name}</div>
       <div class="operator-count">${cnt} งาน</div>
-    </div>
-  `).join('');
+    </div>`).join('');
 }
 
 // ============================================================
-// Table
+// ข้อ 2: ตาราง — แสดงเฉพาะ BreakDown + สาเหตุ + วิธีแก้ไข
 // ============================================================
 function renderTable() {
-  const start = (currentPage - 1) * ROWS_PER_PAGE;
-  const end = start + ROWS_PER_PAGE;
-  const page = filteredData.slice(start, end);
-  const total = filteredData.length;
+  // bdTableData ถูก set ใน sortData() แล้ว
+  const total = bdTableData.length;
   const totalPages = Math.max(1, Math.ceil(total / ROWS_PER_PAGE));
+  const start = (currentPage - 1) * ROWS_PER_PAGE;
+  const end = Math.min(start + ROWS_PER_PAGE, total);
+  const page = bdTableData.slice(start, end);
 
   document.getElementById('pageInfo').textContent =
-    `แสดง ${total ? start+1 : 0}–${Math.min(end, total)} จาก ${total} รายการ`;
+    `แสดง ${total ? start+1 : 0}–${end} จาก ${total} รายการ`;
 
   const tbody = document.getElementById('moTableBody');
   if (!page.length) {
-    tbody.innerHTML = '<tr><td colspan="9" class="empty-state"><div class="empty-state-icon">🔍</div>ไม่พบข้อมูลที่ค้นหา</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="9" class="empty-state"><div class="empty-state-icon">🔍</div>ไม่พบข้อมูล BreakDown</td></tr>';
   } else {
     tbody.innerHTML = page.map((r, i) => {
-      const badge = typeBadge(r.type);
-      const cause = r.cause.length > 40 ? r.cause.slice(0,40)+'…' : r.cause;
       const statusColor = r.status === 'เสร็จสิ้น' ? '#00e676' : r.status === 'กำลังดำเนินการ' ? '#ffd600' : '#ff9800';
-      return `<tr onclick="openDetail(${start+i})">
+      const cause = r.cause || '-';
+      const fix   = r.fix   || '-';
+      return `<tr onclick="openDetail(${start + i})">
         <td style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent-cyan)">${r.mo_number||'-'}</td>
-        <td style="color:var(--text-secondary);font-size:12px">${formatDate(r.date)}</td>
-        <td>${r.machine_type||'-'}</td>
-        <td style="font-family:'IBM Plex Mono',monospace">${r.machine_id||'-'}</td>
-        <td>${badge}</td>
+        <td style="white-space:nowrap;color:var(--text-secondary);font-size:11px">${formatDate(r.date)}</td>
+        <td style="font-size:12px">${r.machine_type||'-'}</td>
+        <td style="font-family:'IBM Plex Mono',monospace;font-size:11px">${r.machine_id||'-'}</td>
         <td class="downtime-val">${r.downtime > 0 ? r.downtime.toFixed(1) : '-'}</td>
-        <td style="color:var(--text-secondary);font-size:12px" title="${r.cause}">${cause||'-'}</td>
-        <td>${r.operator||'-'}</td>
-        <td><span style="color:${statusColor};font-size:12px">● ${r.status||'-'}</span></td>
+        <td class="cell-cause" title="${cause}">${cause.length > 55 ? cause.slice(0,55)+'…' : cause}</td>
+        <td class="cell-fix"   title="${fix}">${fix.length > 55 ? fix.slice(0,55)+'…' : fix}</td>
+        <td style="font-size:12px">${r.operator||'-'}</td>
+        <td><span style="color:${statusColor};font-size:11px">● ${r.status||'-'}</span></td>
       </tr>`;
     }).join('');
   }
 
   // Pagination
-  const pagBtns = document.getElementById('pagBtns');
+  const pagBtns = document.getElementById('pageBtns');
   if (totalPages <= 1) { pagBtns.innerHTML = ''; return; }
 
   let btns = '';
   if (currentPage > 1) btns += `<button class="page-btn" onclick="goPage(${currentPage-1})">‹</button>`;
-  const start_ = Math.max(1, currentPage-2);
-  const end_ = Math.min(totalPages, currentPage+2);
-  if (start_ > 1) btns += `<button class="page-btn" onclick="goPage(1)">1</button>`;
-  if (start_ > 2) btns += `<span style="color:var(--text-muted);padding:0 4px">…</span>`;
-  for (let p = start_; p <= end_; p++) {
-    btns += `<button class="page-btn${p===currentPage?' active':''}" onclick="goPage(${p})">${p}</button>`;
-  }
-  if (end_ < totalPages-1) btns += `<span style="color:var(--text-muted);padding:0 4px">…</span>`;
-  if (end_ < totalPages) btns += `<button class="page-btn" onclick="goPage(${totalPages})">${totalPages}</button>`;
+  const s = Math.max(1, currentPage-2), e = Math.min(totalPages, currentPage+2);
+  if (s > 1) btns += `<button class="page-btn" onclick="goPage(1)">1</button>`;
+  if (s > 2) btns += `<span style="color:var(--text-muted);padding:0 4px">…</span>`;
+  for (let p = s; p <= e; p++) btns += `<button class="page-btn${p===currentPage?' active':''}" onclick="goPage(${p})">${p}</button>`;
+  if (e < totalPages-1) btns += `<span style="color:var(--text-muted);padding:0 4px">…</span>`;
+  if (e < totalPages) btns += `<button class="page-btn" onclick="goPage(${totalPages})">${totalPages}</button>`;
   if (currentPage < totalPages) btns += `<button class="page-btn" onclick="goPage(${currentPage+1})">›</button>`;
   pagBtns.innerHTML = btns;
 }
 
 function goPage(p) { currentPage = p; renderTable(); }
 
+// ============================================================
+// Detail Modal — แสดงสาเหตุ + วิธีแก้ไข
+// ============================================================
+function openDetail(idx) {
+  const r = bdTableData[idx];
+  if (!r) return;
+  document.getElementById('modalTitle').textContent = `🔴 BreakDown: ${r.mo_number || '-'}`;
+  document.getElementById('modalBody').innerHTML = `
+    <div class="detail-grid">
+      <div class="detail-item"><label>เลข MO</label><span style="font-family:'IBM Plex Mono',monospace;color:var(--accent-cyan)">${r.mo_number||'-'}</span></div>
+      <div class="detail-item"><label>วันที่</label><span>${formatDate(r.date)}</span></div>
+      <div class="detail-item"><label>ประเภทเครื่องจักร</label><span>${r.machine_type||'-'}</span></div>
+      <div class="detail-item"><label>หมายเลขเครื่องจักร</label><span style="font-family:'IBM Plex Mono',monospace">${r.machine_id||'-'}</span></div>
+      <div class="detail-item"><label>Downtime (ชม.)</label><span class="downtime-val">${r.downtime > 0 ? r.downtime.toFixed(1) : '-'}</span></div>
+      <div class="detail-item"><label>ผู้ดำเนินการ</label><span>${r.operator||'-'}</span></div>
+      <div class="detail-item full">
+        <label>สาเหตุ / รายละเอียดปัญหา</label>
+        <div class="cause-box">${r.cause||'ไม่ระบุ'}</div>
+      </div>
+      <div class="detail-item full">
+        <label>✅ วิธีการแก้ไข / การดำเนินการ</label>
+        <div class="fix-box">${r.fix || r.status || 'ไม่ระบุ'}</div>
+      </div>
+    </div>`;
+  document.getElementById('detailModal').classList.add('open');
+}
+
+function closeModal() { document.getElementById('detailModal').classList.remove('open'); }
+document.getElementById('detailModal').addEventListener('click', e => { if (e.target.id === 'detailModal') closeModal(); });
+
+// ============================================================
+// Format helpers
+// ============================================================
 function typeBadge(type) {
   const map = { BreakDown:'badge-breakdown', Shutdown:'badge-shutdown', PM:'badge-pm' };
-  const cls = map[type] || 'badge-other';
-  return `<span class="type-badge ${cls}">${type||'-'}</span>`;
+  return `<span class="type-badge ${map[type]||'badge-other'}">${type||'-'}</span>`;
 }
 
 function formatDate(str) {
   const d = parseDate(str);
-  if (!d) return str || '-';
+  if (!d || isNaN(d)) return str || '-';
   return d.toLocaleDateString('th-TH', { day:'2-digit', month:'short', year:'numeric' });
 }
-
-// ============================================================
-// Detail Modal
-// ============================================================
-function openDetail(idx) {
-  const r = filteredData[idx];
-  if (!r) return;
-  document.getElementById('modalTitle').textContent = `📋 MO: ${r.mo_number || '-'}`;
-  document.getElementById('modalBody').innerHTML = `
-    <div class="detail-grid">
-      <div class="detail-item"><label>เลข MO</label><span style="font-family:'IBM Plex Mono',monospace;color:var(--accent-cyan)">${r.mo_number||'-'}</span></div>
-      <div class="detail-item"><label>วันที่</label><span>${r.date||'-'}</span></div>
-      <div class="detail-item"><label>ประเภทเครื่องจักร</label><span>${r.machine_type||'-'}</span></div>
-      <div class="detail-item"><label>หมายเลขเครื่องจักร</label><span style="font-family:'IBM Plex Mono',monospace">${r.machine_id||'-'}</span></div>
-      <div class="detail-item"><label>ประเภทงาน</label><span>${typeBadge(r.type)}</span></div>
-      <div class="detail-item"><label>Downtime (ชม.)</label><span class="downtime-val">${r.downtime > 0 ? r.downtime.toFixed(1) : '-'}</span></div>
-      <div class="detail-item"><label>ผู้ดำเนินการ</label><span>${r.operator||'-'}</span></div>
-      <div class="detail-item"><label>สถานะ</label><span>${r.status||'-'}</span></div>
-      <div class="detail-item full"><label>สาเหตุ / รายละเอียดปัญหา</label><div class="cause-box">${r.cause||'ไม่ระบุ'}</div></div>
-    </div>
-  `;
-  document.getElementById('detailModal').classList.add('open');
-}
-
-function closeModal() {
-  document.getElementById('detailModal').classList.remove('open');
-}
-
-document.getElementById('detailModal').addEventListener('click', e => {
-  if (e.target === document.getElementById('detailModal')) closeModal();
-});
 
 // ============================================================
 // Add Record Form
@@ -1863,15 +1310,16 @@ function submitRecord() {
   if (!mo) { showToast('⚠️ กรุณาระบุเลข MO', 'error'); return; }
 
   const r = {
-    mo_number: mo,
-    date: document.getElementById('f_date').value || new Date().toISOString(),
+    mo_number:    mo,
+    date:         document.getElementById('f_date').value || new Date().toISOString(),
     machine_type: document.getElementById('f_machine_type').value.trim(),
-    machine_id: document.getElementById('f_machine_id').value.trim(),
-    type: document.getElementById('f_type').value,
-    downtime: parseFloat(document.getElementById('f_downtime').value) || 0,
-    cause: document.getElementById('f_cause').value.trim(),
-    operator: document.getElementById('f_operator').value.trim(),
-    status: document.getElementById('f_status').value,
+    machine_id:   document.getElementById('f_machine_id').value.trim(),
+    type:         document.getElementById('f_type').value,
+    downtime:     parseFloat(document.getElementById('f_downtime').value) || 0,
+    cause:        document.getElementById('f_cause').value.trim(),
+    fix:          document.getElementById('f_fix').value.trim(),
+    operator:     document.getElementById('f_operator').value.trim(),
+    status:       document.getElementById('f_status').value,
     _source: 'local'
   };
 
@@ -1882,21 +1330,14 @@ function submitRecord() {
   document.getElementById('addModal').classList.remove('open');
   showToast('✅ บันทึกข้อมูลสำเร็จ', 'success');
 
-  // Clear form
-  ['f_mo','f_machine_type','f_machine_id','f_downtime','f_cause','f_operator'].forEach(id => {
-    document.getElementById(id).value = '';
-  });
+  ['f_mo','f_machine_type','f_machine_id','f_downtime','f_cause','f_fix','f_operator'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('f_date').value = '';
 }
 
 // ============================================================
-// Auto Sync every 2 hours
+// Auto Sync & Init
 // ============================================================
 setInterval(() => loadData(false), SYNC_INTERVAL_MS);
-
-// ============================================================
-// Init
-// ============================================================
 loadData(false);
 </script>
 </body>
