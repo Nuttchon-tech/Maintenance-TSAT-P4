@@ -1310,10 +1310,8 @@ function sortData() {
     return sortAsc?String(va).localeCompare(String(vb),'th'):String(vb).localeCompare(String(va),'th');
   });
 }
-
-// ============================================================
+// MTBF Data
 // Reliability
-// ============================================================
 function calcReliability(data) {
   const failures=data.filter(r=>r.type==='BreakDown');
   const n=failures.length; if(!n) return null;
@@ -1326,7 +1324,7 @@ function calcReliability(data) {
     const diffH=(maxD-minD)/3600000; if(diffH>0) periodHours=diffH;
   }
   const totalOpHours=TOTAL_MACHINES*periodHours;
-  const mtbf=(730-f_downtime)/330;
+  const mtbf=(730-r)/330;
   return{mttr,mtbf,n,totalDT,totalOpHours:Math.round(totalOpHours),periodDays:Math.round(periodHours/24)};
 }
 
