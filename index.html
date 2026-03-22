@@ -888,12 +888,12 @@
         <div class="kpi-label">MO ทั้งหมด</div>
       </div>
       <div class="kpi-card breakdown" style="animation-delay:0.08s">
-        <span class="kpi-icon">🔴</span>
+        <span class="kpi-icon">🚨 Machine Breakdown </span>
         <div class="kpi-value" id="kpiBreakdown">0</div>
         <div class="kpi-label">BreakDown</div>
       </div>
       <div class="kpi-card shutdown" style="animation-delay:0.11s">
-        <span class="kpi-icon">🟠</span>
+        <span class="kpi-icon">⏻ Shutdown </span>
         <div class="kpi-value" id="kpiShutdown">0</div>
         <div class="kpi-label">Shutdown</div>
       </div>
@@ -908,13 +908,13 @@
         <div class="kpi-label">ช่างที่ดำเนินการ</div>
       </div>
       <div class="kpi-card mttr" style="animation-delay:0.20s">
-        <span class="kpi-icon">🔧</span>
+        <span class="kpi-icon">🛠️ MTTR</span>
         <div class="kpi-value" id="kpiMTTR">—<span class="kpi-unit">ชม.</span></div>
         <div class="kpi-label">MTTR (เฉลี่ยเวลาซ่อม)</div>
         <div class="kpi-formula" id="mttrFormula">= Downtime รวม ÷ จำนวน BD</div>
       </div>
       <div class="kpi-card mtbf" style="animation-delay:0.23s">
-        <span class="kpi-icon">📐</span>
+        <span class="kpi-icon">📈 MTBF</span>
         <div class="kpi-value" id="kpiMTBF">—<span class="kpi-unit">ชม.</span></div>
         <div class="kpi-label">MTBF (เฉลี่ยระหว่างพัง)</div>
         <div class="kpi-formula" id="mtbfFormula">= (Op.Hrs − DT) ÷ BD</div>
@@ -949,7 +949,7 @@
     <div class="dashboard-grid-3">
       <div class="card" style="animation-delay:0.38s">
         <div class="card-header">
-          <span class="card-title">🏆 Top 3 ปัญหาที่เกิดซ้ำ</span>
+          <span class="card-title">⚠️ Top 3 ปัญหาที่เกิดซ้ำ</span>
           <span class="card-badge">Problems</span>
         </div>
         <div class="card-body">
@@ -971,7 +971,7 @@
       </div>
       <div class="card" style="animation-delay:0.48s">
         <div class="card-header">
-          <span class="card-title">👷 สถิติผู้ดำเนินการ</span>
+          <span class="card-title">👨‍🔧 Work Load </span>
           <span class="card-badge" id="opCountBadge">0 คน</span>
         </div>
         <div class="card-body">
