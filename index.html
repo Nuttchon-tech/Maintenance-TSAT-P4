@@ -1310,24 +1310,23 @@ function sortData() {
     return sortAsc?String(va).localeCompare(String(vb),'th'):String(vb).localeCompare(String(va),'th');
   });
 }
-
-// ============================================================
-// Reliability
-// ============================================================
+// Reliability 
 function calcReliability(data) {
-  const failures=data.filter(r=>r.type==='BreakDown');
-  const n=failures.length; if(!n) return null;
-  const totalDT=failures.reduce((s,r)=>s+r.downtime,0);
-  const mttr=totalDT/n;
-  const dates=data.map(r=>parseDate(r.date)).filter(Boolean);
-  let periodHours=24*30;
-  if(dates.length>=2){
-    const minD=new Date(Math.min(...dates)),maxD=new Date(Math.max(...dates));
-    const diffH=(maxD-minD)/3600000; if(diffH>0) periodHours=diffH;
-  }
-  const totalOpHours=TOTAL_MACHINES*periodHours;
-  const mtbf = (730 - totalDT) / 330;
-  return{mttr,mtbf,n,totalDT,totalOpHours:Math.round(totalOpHours),periodDays:Math.round(periodHours/24)};
+  const failures = data.filter(r => r.type === 'BreakDown');
+  const n = failures.length;
+  const mc = 330;
+  if (!n) return null;
+
+  const totalDT = failures.reduce((s, r) => s + r.downtime, 0);
+
+  // MTTR = Downtime รวม ÷ จำนวนครั้ง BreakDown
+  const mttr = totalDT / n;
+
+  // MTBF = (730 − Downtime รวม) ÷ จำนวนครั้ง BreakDown
+  //const mtbf = (730 - totalDT) / n;
+  const mtbf = (730 - totalDT) / mc;
+
+  return { mttr, mtbf, n, totalDT };
 }
 
 // ============================================================
@@ -1351,11 +1350,12 @@ function updateDashboard() {
   document.getElementById('tableCountBadge').textContent=(activeTab==='BD'?bd.length:sd.length)+' รายการ';
 
   const rel=calcReliability(data);
-  if(rel){
-    document.getElementById('kpiMTTR').innerHTML=rel.mttr.toFixed(2)+'<span class="kpi-unit">ชม.</span>';
-    document.getElementById('kpiMTBF').innerHTML=rel.mtbf.toFixed(1)+'<span class="kpi-unit">ชม.</span>';
-    document.getElementById('mttrFormula').textContent=`= ${rel.totalDT.toFixed(1)} ÷ ${rel.n} ครั้ง`;
-    document.getElementById('mtbfFormula').textContent=`300 เครื่อง × ${rel.periodDays} วัน`;
+  if (rel) {
+  document.getElementById('kpiMTTR').innerHTML = rel.mttr.toFixed(2) + '<span class="kpi-unit">ชม.</span>';
+  document.getElementById('kpiMTBF').innerHTML = rel.mtbf.toFixed(1) + '<span class="kpi-unit">ชม.</span>';
+  document.getElementById('mttrFormula').textContent = `= ${rel.totalDT.toFixed(1)} ÷ ${rel.n} ครั้ง`;
+  //document.getElementById('mtbfFormula').textContent = `= (730 − ${rel.totalDT.toFixed(1)}) ÷ ${rel.n} ครั้ง`;
+  document.getElementById('mtbfFormula').textContent = `= (730 − ${rel.totalDT.toFixed(1)}) ÷ 330} ครั้ง`;
   } else {
     document.getElementById('kpiMTTR').innerHTML='—<span class="kpi-unit">ชม.</span>';
     document.getElementById('kpiMTBF').innerHTML='—<span class="kpi-unit">ชม.</span>';
