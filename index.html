@@ -1356,7 +1356,7 @@ function updateDashboard() {
   const rel=calcReliability(data);
   if (rel) {
   document.getElementById('kpiMTTR').innerHTML = rel.mttr.toFixed(2) + '<span class="kpi-unit">ชม.</span>';
-  document.getElementById('kpiMTBF').innerHTML = rel.mtbf.toFixed(1) + '<span class="kpi-unit">ชม.</span>';
+  document.getElementById('kpiMTBF').innerHTML = rel.mtbf.toFixed(2) + '<span class="kpi-unit">ชม.</span>';
   document.getElementById('mttrFormula').textContent = `= ${rel.totalDT.toFixed(1)} ÷ ${rel.n} ครั้ง`;
   //document.getElementById('mtbfFormula').textContent = `= (730 − ${rel.totalDT.toFixed(1)}) ÷ ${rel.n} ครั้ง`;
   document.getElementById('mtbfFormula').textContent = `= [(730*MC) − ${rel.totalDT.toFixed(1)})] ÷ MC} `;
