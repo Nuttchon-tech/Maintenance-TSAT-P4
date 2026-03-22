@@ -1324,9 +1324,14 @@ function calcReliability(data) {
 
   // MTBF = (730 − Downtime รวม) ÷ จำนวนครั้ง BreakDown
   //const mtbf = (730 - totalDT) / n;
-  const mtbf = ((730*mc) - totalDT) / mc;
+  const mtbf = ((730 * mc) - totalDT) / mc;
 
-  return { mttr, mtbf, n, totalDT };
+return { 
+  mttr, 
+  mtbf: Number(mtbf.toFixed(2)), // 👈 ตัดทศนิยม 2 ตำแหน่ง
+  n, 
+  totalDT 
+};
 }
 
 // ============================================================
