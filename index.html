@@ -1314,7 +1314,7 @@ function sortData() {
 function calcReliability(data) {
   const failures = data.filter(r => r.type === 'BreakDown');
   const n = failures.length;
-  const mc = 330;
+  //const mc = 330;
   if (!n) return null;
 
   const totalDT = failures.reduce((s, r) => s + r.downtime, 0);
@@ -1324,8 +1324,7 @@ function calcReliability(data) {
 
   // MTBF = (730 − Downtime รวม) ÷ จำนวนครั้ง BreakDown
   //const mtbf = (730 - totalDT) / n;
-  const mtbf = ((730 * mc) - totalDT) / mc;
-
+  const mtbf = (730 * 330 - totalDT)/330;
 return { 
   mttr, 
   mtbf: Number(mtbf.toFixed(2)), // 👈 ตัดทศนิยม 2 ตำแหน่ง
