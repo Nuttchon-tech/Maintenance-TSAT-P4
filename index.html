@@ -1320,7 +1320,7 @@ function calcReliability(data) {
   const totalDT = failures.reduce((s, r) => s + r.downtime, 0);
 
   // MTTR = Downtime รวม ÷ จำนวนครั้ง BreakDown
-  const mttr = totalDT / n;
+  const mttr = totalDT*60/ n;
 
   // MTBF = (730 − Downtime รวม) ÷ จำนวนครั้ง BreakDown
   //const mtbf = (730 - totalDT) / n;
@@ -1355,7 +1355,7 @@ function updateDashboard() {
 
   const rel=calcReliability(data);
   if (rel) {
-  document.getElementById('kpiMTTR').innerHTML = rel.mttr.toFixed(2) + '<span class="kpi-unit">ชม.</span>';
+  document.getElementById('kpiMTTR').innerHTML = rel.mttr.toFixed(2)*60 + '<span class="kpi-unit">นาที</span>';
   document.getElementById('kpiMTBF').innerHTML = rel.mtbf.toFixed(2) + '<span class="kpi-unit">ชม.</span>';
   document.getElementById('mttrFormula').textContent = `= ${rel.totalDT.toFixed(1)} ÷ ${rel.n} ครั้ง`;
   //document.getElementById('mtbfFormula').textContent = `= (730 − ${rel.totalDT.toFixed(1)}) ÷ ${rel.n} ครั้ง`;
