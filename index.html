@@ -1355,7 +1355,7 @@ function updateDashboard() {
   document.getElementById('kpiMTBF').innerHTML = rel.mtbf.toFixed(1) + '<span class="kpi-unit">ชม.</span>';
   document.getElementById('mttrFormula').textContent = `= ${rel.totalDT.toFixed(1)} ÷ ${rel.n} ครั้ง`;
   //document.getElementById('mtbfFormula').textContent = `= (730 − ${rel.totalDT.toFixed(1)}) ÷ ${rel.n} ครั้ง`;
-  document.getElementById('mtbfFormula').textContent = `= (730 − ${rel.totalDT.toFixed(1)}) ÷ 330} ครั้ง`;
+  document.getElementById('mtbfFormula').textContent = `= [(730*MC) − ${rel.totalDT.toFixed(1)})] ÷ MC} `;
   } else {
     document.getElementById('kpiMTTR').innerHTML='—<span class="kpi-unit">ชม.</span>';
     document.getElementById('kpiMTBF').innerHTML='—<span class="kpi-unit">ชม.</span>';
