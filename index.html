@@ -888,7 +888,7 @@
         <div class="kpi-label">MO ทั้งหมด</div>
       </div>
       <div class="kpi-card breakdown" style="animation-delay:0.08s">
-        <span class="kpi-icon">🚨 Machine Breakdown </span>
+        <span class="kpi-icon">🚨 MC Breakdown </span>
         <div class="kpi-value" id="kpiBreakdown">0</div>
         <div class="kpi-label">BreakDown</div>
       </div>
@@ -1324,7 +1324,7 @@ function calcReliability(data) {
 
   // MTBF = (730 − Downtime รวม) ÷ จำนวนครั้ง BreakDown
   //const mtbf = (730 - totalDT) / n;
-  const mtbf = (730 - totalDT) / mc;
+  const mtbf = ((730*mc) - totalDT) / mc;
 
   return { mttr, mtbf, n, totalDT };
 }
