@@ -883,14 +883,14 @@
 
     <div class="kpi-grid">
       <div class="kpi-card total" style="animation-delay:0.05s">
-        <span class="kpi-icon">📋 Total MO</span>
+        <span class="kpi-icon">📋</span>
         <div class="kpi-value" id="kpiTotal">0</div>
         <div class="kpi-label">MO ทั้งหมด</div>
       </div>
       <div class="kpi-card breakdown" style="animation-delay:0.08s">
-        <span class="kpi-icon">🚨 Breakdown </span>
+        <span class="kpi-icon">🚨 MC Breakdown </span>
         <div class="kpi-value" id="kpiBreakdown">0</div>
-        <div class="kpi-label">MTN BreakDown</div>
+        <div class="kpi-label">BreakDown</div>
       </div>
       <div class="kpi-card shutdown" style="animation-delay:0.11s">
         <span class="kpi-icon">⏻ Shutdown </span>
@@ -898,25 +898,25 @@
         <div class="kpi-label">Shutdown</div>
       </div>
       <div class="kpi-card downtime" style="animation-delay:0.14s">
-        <span class="kpi-icon">⏱️ Downtime</span>
+        <span class="kpi-icon">⏱️</span>
         <div class="kpi-value" id="kpiDowntime">0<span class="kpi-unit">ชม.</span></div>
-        <div class="kpi-label">Downtime= BD+SD</div>
+        <div class="kpi-label">Downtime รวม</div>
       </div>
       <div class="kpi-card operators" style="animation-delay:0.17s">
-        <span class="kpi-icon">👷 MTN Staff</span>
-        <div class="kpi-value" id="kpiOperators+2">0</div>
-        <div class="kpi-label"> 2140456000 </div>
+        <span class="kpi-icon">👷</span>
+        <div class="kpi-value" id="kpiOperators">0</div>
+        <div class="kpi-label">ช่างที่ดำเนินการ</div>
       </div>
       <div class="kpi-card mttr" style="animation-delay:0.20s">
         <span class="kpi-icon">🛠️ MTTR</span>
         <div class="kpi-value" id="kpiMTTR">—<span class="kpi-unit">ชม.</span></div>
-        <div class="kpi-label">Mean Time To Repair</div>  // <div class="kpi-label">MTTR (เฉลี่ยเวลาซ่อม)</div>
+        <div class="kpi-label">MTTR (เฉลี่ยเวลาซ่อม)</div>
         <div class="kpi-formula" id="mttrFormula">= Downtime รวม ÷ จำนวน BD</div>
       </div>
       <div class="kpi-card mtbf" style="animation-delay:0.23s">
         <span class="kpi-icon">📈 MTBF</span>
         <div class="kpi-value" id="kpiMTBF">—<span class="kpi-unit">ชม.</span></div>
-        <div class="kpi-label">Mean Time Between Failures </div>  //<div class="kpi-label">MTBF (เฉลี่ยระหว่างพัง)</div>
+        <div class="kpi-label">MTBF (เฉลี่ยระหว่างพัง)</div>
         <div class="kpi-formula" id="mtbfFormula">= (Op.Hrs − DT) ÷ BD</div>
       </div>
     </div>
@@ -1319,7 +1319,7 @@ function calcReliability(data) {
 
   const totalDT = failures.reduce((s, r) => s + r.downtime, 0);
 
-  // MTTR = Downtime รวม ÷ จำนวนครั้ง BreakDownc นาที
+  // MTTR = Downtime รวม ÷ จำนวนครั้ง BreakDown
   const mttr = totalDT*60/ n;
 
   // MTBF = (730 − Downtime รวม) ÷ จำนวนครั้ง BreakDown
