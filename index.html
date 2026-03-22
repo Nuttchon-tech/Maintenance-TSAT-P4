@@ -1326,7 +1326,7 @@ function calcReliability(data) {
     const diffH=(maxD-minD)/3600000; if(diffH>0) periodHours=diffH;
   }
   const totalOpHours=TOTAL_MACHINES*periodHours;
-  const mtbf=(730-n)/330;
+  const mtbf=(730-f_downtime)/330;
   return{mttr,mtbf,n,totalDT,totalOpHours:Math.round(totalOpHours),periodDays:Math.round(periodHours/24)};
 }
 
