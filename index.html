@@ -888,7 +888,7 @@
         <div class="kpi-label">MO ทั้งหมด</div>
       </div>
       <div class="kpi-card breakdown" style="animation-delay:0.08s">
-        <span class="kpi-icon">🚨 Machine Breakdown </span>
+        <span class="kpi-icon">🚨  Breakdown </span>
         <div class="kpi-value" id="kpiBreakdown">0</div>
         <div class="kpi-label">BreakDown</div>
       </div>
@@ -1326,7 +1326,7 @@ function calcReliability(data) {
     const diffH=(maxD-minD)/3600000; if(diffH>0) periodHours=diffH;
   }
   const totalOpHours=TOTAL_MACHINES*periodHours;
-  const mtbf=(730-n)/330;
+  const mtbf=(730-kpiDowntime)/330;
   return{mttr,mtbf,n,totalDT,totalOpHours:Math.round(totalOpHours),periodDays:Math.round(periodHours/24)};
 }
 
